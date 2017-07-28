@@ -11,15 +11,19 @@ long getUserInput(char *input) {
     return choice;
 }
 
-int main()
-{
-    char input[2];
-
+void displayWelcome() {
     puts("Welcome to Reversi!");
     puts("===================");
     puts("Select an option:");
     puts("1. Play a game");
     puts("2. Quit the program");
+}
+
+int main()
+{
+    char input[2];
+
+    displayWelcome();
     long int choice = getUserInput(input);
 
     Boolean userHasEnteredValidOption = FALSE;
