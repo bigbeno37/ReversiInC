@@ -12,7 +12,37 @@
  * Note that an empty name is not valid and the user should be re-prompted.
  **/
 void initFirstPlayer(Player * player)
-{ }
+{
+    char name[NAMELEN + 2];
+
+    printf("Please enter your name: ");
+
+    Boolean correctInput = FALSE;
+
+    while (!correctInput) {
+
+        correctInput = TRUE;
+
+        if (!fgets(name, NAMELEN+2, stdin)) {
+            printf("You need to enter a name: ");
+            correctInput = FALSE;
+        } else {
+            if (name[NAMELEN] == 0) {
+                readRestOfLine();
+
+                puts(name);
+
+                printf("Name too long! Enter a new name! ");
+
+                correctInput = FALSE;
+            }
+        }
+
+        puts("");
+    }
+
+
+}
 
 void initSecondPlayer(Player * player, Cell token)
 { }

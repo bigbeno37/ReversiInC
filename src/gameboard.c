@@ -38,7 +38,13 @@ void displayBoard(
 
         for (int ii = 0; ii < BOARD_HEIGHT; ii++) {
             if (board[i][ii] != BLANK) {
-                printf(" O |");
+
+                if (board[i][ii] == RED) {
+                    printf(COLOR_RED " O" COLOR_RESET " |" COLOR_RESET);
+                } else {
+                    printf(COLOR_CYAN " O" COLOR_RESET " |" COLOR_RESET);
+                }
+
             } else {
                 printf("   |");
             }

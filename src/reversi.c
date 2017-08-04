@@ -24,6 +24,8 @@ int main()
     char playerOneName[NAMELEN];
     char playerTwoName[NAMELEN];
 
+    Player player1;
+
     displayWelcome();
 //    long int choice = getUserInput(input);
 
@@ -31,8 +33,10 @@ int main()
 
     Cell board[BOARD_HEIGHT][BOARD_WIDTH];
 
-    initBoard(board);
-    displayBoard(board, NULL, NULL);
+//    initBoard(board);
+//    displayBoard(board, NULL, NULL);
+
+    initFirstPlayer(&player1);
 
 //    while (!userHasEnteredValidOption) {
 //        switch (choice) {
