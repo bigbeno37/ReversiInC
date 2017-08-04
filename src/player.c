@@ -14,7 +14,7 @@
 void initFirstPlayer(Player * player)
 {
     // Create a new char array of size 20, with 1 extra for newline support
-    static char name[NAMELEN + 1] = "";
+    static char name[NAMELEN + EXTRA_SPACES] = "";
 
     printf("Player 1, enter your name: ");
     getUserInput(name);
@@ -31,7 +31,7 @@ void initFirstPlayer(Player * player)
 
 void initSecondPlayer(Player * player, Cell token)
 {
-    static char name[NAMELEN + 1] = "";
+    static char name[NAMELEN + EXTRA_SPACES] = "";
 
     printf("Player 2, enter your name: ");
     getUserInput(name);

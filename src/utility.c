@@ -1,4 +1,5 @@
 #include "utility.h"
+#include "player.h"
 
 /**
  * Function required to be used when clearing the buffer. It simply reads
@@ -25,7 +26,7 @@ void getUserInput(char *buffer) {
         correctInput = TRUE;
 
         // Get the input and store it in name
-        fgets(buffer, sizeof(buffer), stdin);
+        fgets(buffer, NAMELEN, stdin);
 
         // If name doesn't have a newline character (and thus the input was bigger than 20)
         // remove overflowed characters and ask for new input
