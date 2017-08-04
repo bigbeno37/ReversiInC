@@ -24,6 +24,10 @@
  **/
 Player * playGame(Player * first, Player * second)
 {
+
+    initFirstPlayer(first);
+    initSecondPlayer(second, first->token);
+
     return NULL;
 }
 

@@ -13,33 +13,34 @@
  **/
 void initFirstPlayer(Player * player)
 {
+    // Create a new char array of size 20, with 1 extra for newline support
     static char name[NAMELEN + 1] = "";
 
-    printf("Please enter your name: ");
+    printf("Player 1, enter your name: ");
+    getUserInput(name);
 
-    Boolean correctInput = FALSE;
-
-    while (!correctInput) {
-        correctInput = TRUE;
-
-        fgets(name, sizeof(name), stdin);
-
-        if (!strchr(name, '\n')) {
-            printf("The name entered was too long! Enter a smaller name: ");
-            readRestOfLine();
-
-            correctInput = FALSE;
-        }
-    }
-
+    // Get the current time and set it as the seed for rand()
     time_t t;
-
     srand( (unsigned) time(&t));
 
     strcpy(player->name, name);
     player->score = 0;
+    // Get a random number between 0 and 1; if 0, the player is RED, if 1, the player is CYAN
     player->token = (rand() % 2 == 0) ? RED : CYAN;
 }
 
 void initSecondPlayer(Player * player, Cell token)
-{ }
+{
+    static char name[NAMELEN + 1] = "";
+
+    printf("Player 2, enter your name: ");
+    getUserInput(name);
+
+    time_t t;
+    srand( (unsigned) time(&t));
+
+    strcpy(player->name, name);
+    player->score = 0;
+    // Choose the opposite token from the one passed in
+    player->token = (token == RED) ? CYAN : RED;
+}
