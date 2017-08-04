@@ -13,35 +13,32 @@
  **/
 void initFirstPlayer(Player * player)
 {
-    char name[NAMELEN + 2];
+    static char name[NAMELEN + 1] = "";
 
     printf("Please enter your name: ");
 
     Boolean correctInput = FALSE;
 
     while (!correctInput) {
-
         correctInput = TRUE;
 
-        if (!fgets(name, NAMELEN+2, stdin)) {
-            printf("You need to enter a name: ");
+        fgets(name, sizeof(name), stdin);
+
+        if (!strchr(name, '\n')) {
+            printf("The name entered was too long! Enter a smaller name: ");
+            readRestOfLine();
+
             correctInput = FALSE;
-        } else {
-            if (name[NAMELEN] == 0) {
-                readRestOfLine();
-
-                puts(name);
-
-                printf("Name too long! Enter a new name! ");
-
-                correctInput = FALSE;
-            }
         }
-
-        puts("");
     }
 
+    time_t t;
 
+    srand( (unsigned) time(&t));
+
+    strcpy(player->name, name);
+    player->score = 0;
+    player->token = (rand() % 2 == 0) ? RED : CYAN;
 }
 
 void initSecondPlayer(Player * player, Cell token)
