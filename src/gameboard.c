@@ -8,8 +8,18 @@
  * squares in the middle of the board. In that case they are initialised to 
  * appropriate colored tokens.
  **/
-void initBoard(Cell board[BOARD_HEIGHT][BOARD_WIDTH])
-{ }
+void initBoard(Cell board[BOARD_HEIGHT][BOARD_WIDTH]) {
+    for (int i = 0; i < BOARD_WIDTH; i++) {
+        for (int ii = 0; ii < BOARD_HEIGHT; ii++) {
+            board[i][ii] = BLANK;
+        }
+    }
+
+    board[3][3] = RED;
+    board[3][4] = CYAN;
+    board[4][3] = CYAN;
+    board[4][4] = RED;
+}
 
 /**
  * Display the board as specified in the assignment specification. You should 
@@ -18,4 +28,23 @@ void initBoard(Cell board[BOARD_HEIGHT][BOARD_WIDTH])
  **/
 void displayBoard(
     Cell board[BOARD_HEIGHT][BOARD_WIDTH], Player * first, Player * second)
-{ }
+{
+    puts("     1   2   3   4   5   6   7   8");
+    puts("====================================");
+
+    for (int i = 0; i < BOARD_WIDTH; i++) {
+
+        printf(" %d |", i+1);
+
+        for (int ii = 0; ii < BOARD_HEIGHT; ii++) {
+            if (board[i][ii] != BLANK) {
+                printf(" O |");
+            } else {
+                printf("   |");
+            }
+        }
+
+        puts("");
+        puts("------------------------------------");
+    }
+}

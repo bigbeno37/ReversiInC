@@ -6,7 +6,6 @@ long getUserInput(char *input) {
 
     if ( fgets(input, sizeof(input), stdin) != NULL ) {
         choice = strtol(input, NULL, 10);
-        strcpy(input, "");
     }
     return choice;
 }
@@ -22,31 +21,47 @@ void displayWelcome() {
 int main()
 {
     char input[2];
+    char playerOneName[NAMELEN];
+    char playerTwoName[NAMELEN];
 
     displayWelcome();
-    long int choice = getUserInput(input);
+//    long int choice = getUserInput(input);
 
     Boolean userHasEnteredValidOption = FALSE;
 
-    while (!userHasEnteredValidOption) {
-        switch (choice) {
-            case 2:
-                puts("Goodbye!");
-                userHasEnteredValidOption = TRUE;
+    Cell board[BOARD_HEIGHT][BOARD_WIDTH];
 
-                break;
-            case 1:
-                puts("Welcome to the matrix!");
-                userHasEnteredValidOption = TRUE;
+    initBoard(board);
+    displayBoard(board, NULL, NULL);
 
-                break;
-            default:
-                printf("Invalid selection! ");
-                choice = getUserInput(input);
-
-                break;
-        }
-    }
+//    while (!userHasEnteredValidOption) {
+//        switch (choice) {
+//            case 2:
+//                puts("Goodbye!");
+//                userHasEnteredValidOption = TRUE;
+//
+//                break;
+//            case 1:
+//                userHasEnteredValidOption = TRUE;
+//
+//                printf("Player 1, enter your name: ");
+//                fgets(playerOneName, sizeof(playerOneName), stdin);
+//                strtok(playerOneName, "\n");
+//
+//                printf("Player 2, enter your name: ");
+//                fgets(playerTwoName, sizeof(playerTwoName), stdin);
+//                strtok(playerTwoName, "\n");
+//
+//                printf("Player 1 is %s, Player 2 is %s", playerOneName, playerTwoName);
+//
+//                break;
+//            default:
+//                printf("Invalid selection! ");
+//                choice = getUserInput(input);
+//
+//                break;
+//        }
+//    }
 
 
     return EXIT_SUCCESS;
