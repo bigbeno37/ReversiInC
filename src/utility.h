@@ -31,6 +31,9 @@ typedef enum boolean
  **/
 void readRestOfLine();
 
-void getUserInput(char *buffer);
+void displayWelcome();
+
+void getUserInput(char *buffer, int charsToRead);
+long getUserChoice();
 
 #endif

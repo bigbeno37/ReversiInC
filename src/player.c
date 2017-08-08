@@ -17,11 +17,7 @@ void initFirstPlayer(Player * player)
     static char name[NAMELEN + EXTRA_SPACES] = "";
 
     printf("Player 1, enter your name: ");
-    getUserInput(name);
-
-    // Get the current time and set it as the seed for rand()
-    time_t t;
-    srand( (unsigned) time(&t));
+    getUserInput(name, sizeof(name));
 
     strcpy(player->name, name);
     player->score = 0;
@@ -34,10 +30,7 @@ void initSecondPlayer(Player * player, Cell token)
     static char name[NAMELEN + EXTRA_SPACES] = "";
 
     printf("Player 2, enter your name: ");
-    getUserInput(name);
-
-    time_t t;
-    srand( (unsigned) time(&t));
+    getUserInput(name, sizeof(name));
 
     strcpy(player->name, name);
     player->score = 0;

@@ -17,7 +17,18 @@ void readRestOfLine()
     clearerr(stdin);
 }
 
-void getUserInput(char *buffer) {
+void displayWelcome() {
+    puts("Welcome to Reversi!");
+    puts("===================");
+    puts("Select an option:");
+    puts("1. Play a game");
+    puts("2. Quit the program");
+    printf("Please enter your choice: ");
+}
+
+long getUserChoice() {
+    int digits = EXTRA_SPACES + 1;
+    char buffer[digits];
     strcpy(buffer, "");
 
     Boolean correctInput = FALSE;
@@ -26,14 +37,45 @@ void getUserInput(char *buffer) {
         correctInput = TRUE;
 
         // Get the input and store it in name
-        fgets(buffer, NAMELEN, stdin);
+        fgets(buffer, digits, stdin);
 
         // If name doesn't have a newline character (and thus the input was bigger than 20)
         // remove overflowed characters and ask for new input
         if (!strchr(buffer, '\n')) {
-            printf("The name entered was too long! Enter a smaller name: ");
+            printf("Buffer overflow! Please enter a correct choice: ");
             readRestOfLine();
 
+            correctInput = FALSE;
+        } else if (buffer[0] == '\n') {
+            printf("Please enter a choice: ");
+            correctInput = FALSE;
+        }
+    }
+
+    return strtol(buffer, NULL, 10);
+
+}
+
+void getUserInput(char *buffer, int charsToRead) {
+    strcpy(buffer, "");
+
+    Boolean correctInput = FALSE;
+
+    while (!correctInput) {
+        correctInput = TRUE;
+
+        // Get the input and store it in name
+        fgets(buffer, charsToRead, stdin);
+
+        // If name doesn't have a newline character (and thus the input was bigger than 20)
+        // remove overflowed characters and ask for new input
+        if (!strchr(buffer, '\n')) {
+            printf("Buffer overflow! Enter a smaller name: ");
+            readRestOfLine();
+
+            correctInput = FALSE;
+        } else if (buffer[0] == '\n') {
+            printf("Please enter a name: ");
             correctInput = FALSE;
         }
     }

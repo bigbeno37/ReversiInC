@@ -25,10 +25,45 @@
 Player * playGame(Player * first, Player * second)
 {
 
+    // Seed the random number generator using the current time
+    time_t t;
+    srand( (unsigned) time(&t));
+
+    displayWelcome();
+
+    long int choice = getUserChoice();
+    Boolean validChoice = FALSE;
+
+    while (!validChoice) {
+
+        validChoice = TRUE;
+
+        if (choice == 1) {
+
+        } else if (choice == 2) {
+            return NULL;
+        } else {
+            puts("Not a valid choice!");
+            printf("Enter a choice: ");
+
+            choice = getUserChoice(1);
+        }
+    }
+
+
+
+
     initFirstPlayer(first);
     initSecondPlayer(second, first->token);
 
-    return NULL;
+    // If the two player's scores are tied, return NULL
+    if ( first->score == second->score ) {
+        return NULL;
+    }
+
+    // Otherwise return whoever scored higher
+    return ( first->score > second->score ) ? first : second;
+
 }
 
 /**
@@ -68,11 +103,24 @@ Boolean applyMove(Cell board[BOARD_HEIGHT][BOARD_WIDTH], int y, int x, Cell toke
  **/
 unsigned gameScore(Cell board[BOARD_HEIGHT][BOARD_WIDTH], Cell token)
 {
-    return 0;
+    unsigned int sum = 0;
+
+    for ( int i = 0; i < BOARD_WIDTH; i++ ) {
+        for( int ii = 0; ii < BOARD_HEIGHT; ii++ ) {
+            // Add 1 if the token matches, otherwise don't add anything
+            sum += (board[i][ii] == token) ? 1 : 0;
+        }
+    }
+
+    return sum;
 }
 
 /**
  * Swaps the two player pointers so that first points to second and vice versa.
  **/
 void swapPlayers(Player ** first, Player ** second)
-{ }
+{
+    Player *temp = *first;
+    *first = *second;
+    *second = temp;
+}
