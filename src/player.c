@@ -13,7 +13,7 @@
  **/
 void initFirstPlayer(Player * player)
 {
-    // Create a new char array of size 20, with 1 extra for newline support
+    /* Create a new char array of size 20, with 1 extra for newline support */
     static char name[NAMELEN + EXTRA_SPACES] = "";
 
     printf("Player 1, enter your name: ");
@@ -21,7 +21,7 @@ void initFirstPlayer(Player * player)
 
     strcpy(player->name, name);
     player->score = 0;
-    // Get a random number between 0 and 1; if 0, the player is RED, if 1, the player is CYAN
+    /* Get a random number between 0 and 1; if 0, the player is RED, if 1, the player is CYAN */
     player->token = (rand() % 2 == 0) ? RED : CYAN;
 }
 
@@ -34,6 +34,6 @@ void initSecondPlayer(Player * player, Cell token)
 
     strcpy(player->name, name);
     player->score = 0;
-    // Choose the opposite token from the one passed in
+    /* Choose the opposite token from the one passed in */
     player->token = (token == RED) ? CYAN : RED;
 }
