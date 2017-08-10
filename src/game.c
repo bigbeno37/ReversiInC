@@ -27,6 +27,7 @@ Player * playGame(Player * first, Player * second)
     Cell board[BOARD_WIDTH][BOARD_HEIGHT];
     long int choice = getUserChoice();
     Boolean validChoice = FALSE;
+    Player *currentPlayer = first, *opponent = second;
     
     /* Seed the random number generator using the current time */
     time_t t;
@@ -55,8 +56,6 @@ Player * playGame(Player * first, Player * second)
 
     initFirstPlayer(first);
     initSecondPlayer(second, first->token);
-
-    Player *currentPlayer = first, *opponent = second;
 
     initBoard(board);
     displayBoard(board, first, second);
