@@ -28,8 +28,7 @@ void displayWelcome() {
 
 long getUserChoice() {
     Boolean correctInput = FALSE;
-    int digits = EXTRA_SPACES + 1;
-    char buffer[digits];
+    char buffer[CHOICE_SIZE];
     strcpy(buffer, "");
 
     while (!correctInput) {
