@@ -119,19 +119,29 @@ Boolean makeMove(Player * player, Cell board[BOARD_HEIGHT][BOARD_WIDTH])
         }
 
         position = strtok(buffer, ",");
-        x = strtol(position, NULL, 10);
+        if (position != NULL) {
+            x = strtol(position, NULL, 10);
+        }
 
         position = strtok(NULL, ",");
-        y = strtol(position, NULL, 10);
+        if (position != NULL) {
+            y = strtol(position, NULL, 10);
+        }
 
         if (!(1 <= x && x <= 8) || !(1 <= y && y <= 8)) {
             validInput = FALSE;
 
-            puts("Invalid input! Enter a position separated by a comma: ");
+            printf("Invalid input! Enter a position separated by a comma: ");
+            continue;
+        }
+
+        if (!applyMove(board, (int)y, (int)x, player->token)) {
+            validInput = FALSE;
+
+            printf("Invalid move! Enter a valid move: ");
+            continue;
         }
     }
-
-    applyMove(board, (int)y, (int)x, player->token);
 }
 
 /**
