@@ -27,7 +27,7 @@ Player * playGame(Player * first, Player * second)
     Cell board[BOARD_WIDTH][BOARD_HEIGHT];
     long int choice = 0;
     Boolean validChoice = FALSE;
-    Player *currentPlayer = first, *opponent = second;
+    Player *currentPlayer, *opponent;
     
     /* Seed the random number generator using the current time */
     time_t t;
@@ -58,6 +58,10 @@ Player * playGame(Player * first, Player * second)
 
     initFirstPlayer(first);
     initSecondPlayer(second, first->token);
+    
+    /* Assign the current player and opponent. Whoever has the RED colour goes first*/
+    currentPlayer = (first->token == RED) ? first : second;
+    opponent = (first->token == RED) ? second : first;
 
     initBoard(board);
     displayBoard(board, first, second);
