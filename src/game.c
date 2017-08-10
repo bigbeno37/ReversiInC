@@ -24,17 +24,15 @@
  **/
 Player * playGame(Player * first, Player * second)
 {
-
+    Cell board[BOARD_WIDTH][BOARD_HEIGHT];
+    long int choice = getUserChoice();
+    Boolean validChoice = FALSE;
+    
     /* Seed the random number generator using the current time */
     time_t t;
     srand( (unsigned) time(&t));
 
-    Cell board[BOARD_WIDTH][BOARD_HEIGHT];
-
     displayWelcome();
-
-    long int choice = getUserChoice();
-    Boolean validChoice = FALSE;
 
     while (!validChoice) {
 
@@ -93,13 +91,12 @@ Player * playGame(Player * first, Player * second)
  **/
 Boolean makeMove(Player * player, Cell board[BOARD_HEIGHT][BOARD_WIDTH])
 {
-    printf("It is %s's turn.\n", player->name);
-    printf("Please enter x and y coordinates separated by a comma for the piece you wish to place: ");
-
     char buffer[3 + EXTRA_SPACES] = "", *position;
     long x = 0, y = 0;
-
     Boolean validInput = FALSE;
+    
+    printf("It is %s's turn.\n", player->name);
+    printf("Please enter x and y coordinates separated by a comma for the piece you wish to place: ");    
 
     while (!validInput) {
         validInput = TRUE;
