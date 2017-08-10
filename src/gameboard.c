@@ -40,6 +40,8 @@ void initBoard(Cell board[BOARD_HEIGHT][BOARD_WIDTH]) {
 void displayBoard(
     Cell board[BOARD_HEIGHT][BOARD_WIDTH], Player * first, Player * second)
 {
+    int i, ii;
+    
     puts("================================================================================");
     puts("Player One's Details");
     puts("--------------------");
@@ -56,8 +58,6 @@ void displayBoard(
 
     puts("\t 1   2   3   4   5   6   7   8");
     puts("====================================");
-
-    int i, ii;
 
     for (i = 0; i < BOARD_WIDTH; i++) {
 
