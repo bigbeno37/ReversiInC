@@ -6,6 +6,9 @@ int main()
     Player player2;
 
     playGame(&player1, &player2);
+    
+    puts("");
+    puts("Goodbye. ");
 
     return EXIT_SUCCESS;
 }
