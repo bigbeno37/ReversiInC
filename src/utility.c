@@ -36,11 +36,11 @@ long getUserChoice() {
     while (!correctInput) {
         correctInput = TRUE;
 
-        // Get the input and store it in name
+        /* Get the input and store it in name */
         fgets(buffer, digits, stdin);
 
-        // If name doesn't have a newline character (and thus the input was bigger than 20)
-        // remove overflowed characters and ask for new input
+        /* If name doesn't have a newline character (and thus the input was bigger than 20) */
+        /* remove overflowed characters and ask for new input */
         if (!strchr(buffer, '\n')) {
             printf("\nBuffer overflow! Please enter a valid choice: ");
             readRestOfLine();
@@ -61,11 +61,11 @@ void getUserInput(char *buffer, int charsToRead) {
     while (!correctInput) {
         correctInput = TRUE;
 
-        // Get the input and store it in name
+        /* Get the input and store it in name */
         fgets(buffer, charsToRead, stdin);
 
-        // If name doesn't have a newline character (and thus the input was bigger than 20)
-        // remove overflowed characters and ask for new input
+        /* If name doesn't have a newline character (and thus the input was bigger than 20) */
+        /* remove overflowed characters and ask for new input */
         if (!strchr(buffer, '\n')) {
             printf("Buffer overflow! Enter a smaller name: ");
             readRestOfLine();
