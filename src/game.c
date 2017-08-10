@@ -63,8 +63,10 @@ Player * playGame(Player * first, Player * second)
     initBoard(board);
     displayBoard(board, first, second);
 
+    // The main loop; if the move made was successful, swap players and play the next round
     while (makeMove(currentPlayer, board)) {
         swapPlayers(&currentPlayer, &opponent);
+        displayBoard(board, first, second);
     }
 
 
@@ -101,7 +103,7 @@ Boolean makeMove(Player * player, Cell board[BOARD_HEIGHT][BOARD_WIDTH])
 
     while (!validInput) {
         validInput = TRUE;
-
+        
         fgets(buffer, 3 + EXTRA_SPACES, stdin);
 
         if (!strchr(buffer, '\n')) {
@@ -118,23 +120,29 @@ Boolean makeMove(Player * player, Cell board[BOARD_HEIGHT][BOARD_WIDTH])
             return FALSE;
         }
 
+        // Get the first token of the buffer
         position = strtok(buffer, ",");
+        // Validate that the token can be converted to an int
         if (position != NULL) {
             x = strtol(position, NULL, 10);
         }
 
+        // Get the second token of the buffer
         position = strtok(NULL, ",");
+        // Validate that the token can be converted to an int
         if (position != NULL) {
             y = strtol(position, NULL, 10);
         }
 
+        // If the converted values aren't between 1 and 8, return into the loop
         if (!(1 <= x && x <= 8) || !(1 <= y && y <= 8)) {
             validInput = FALSE;
 
             printf("Invalid input! Enter a position separated by a comma: ");
             continue;
         }
-
+        
+        // If the position specified is against the rules, return into the loop
         if (!applyMove(board, (int)y, (int)x, player->token)) {
             validInput = FALSE;
 
