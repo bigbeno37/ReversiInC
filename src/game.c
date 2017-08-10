@@ -147,6 +147,8 @@ Boolean makeMove(Player * player, Cell board[BOARD_HEIGHT][BOARD_WIDTH])
             continue;
         }
     }
+    
+    return TRUE;
 }
 
 /**
