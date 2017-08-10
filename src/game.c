@@ -25,7 +25,7 @@
 Player * playGame(Player * first, Player * second)
 {
 
-    // Seed the random number generator using the current time
+    /* Seed the random number generator using the current time */
     time_t t;
     srand( (unsigned) time(&t));
 
@@ -41,7 +41,7 @@ Player * playGame(Player * first, Player * second)
         validChoice = TRUE;
 
         if (choice == 1) {
-            // Continue below
+            /* Continue below */
         } else if (choice == 2) {
             return NULL;
         } else {
@@ -63,19 +63,19 @@ Player * playGame(Player * first, Player * second)
     initBoard(board);
     displayBoard(board, first, second);
 
-    // The main loop; if the move made was successful, swap players and play the next round
+    /* The main loop; if the move made was successful, swap players and play the next round */
     while (makeMove(currentPlayer, board)) {
         swapPlayers(&currentPlayer, &opponent);
         displayBoard(board, first, second);
     }
 
 
-    // If the two player's scores are tied, return NULL
+    /* If the two player's scores are tied, return NULL */
     if ( first->score == second->score ) {
         return NULL;
     }
 
-    // Otherwise return whoever scored higher
+    /* Otherwise return whoever scored higher */
     return ( first->score > second->score ) ? first : second;
 
 }
@@ -120,21 +120,21 @@ Boolean makeMove(Player * player, Cell board[BOARD_HEIGHT][BOARD_WIDTH])
             return FALSE;
         }
 
-        // Get the first token of the buffer
+        /* Get the first token of the buffer */
         position = strtok(buffer, ",");
-        // Validate that the token can be converted to an int
+        /* Validate that the token can be converted to an int */
         if (position != NULL) {
             x = strtol(position, NULL, 10);
         }
 
-        // Get the second token of the buffer
+        /* Get the second token of the buffer */
         position = strtok(NULL, ",");
-        // Validate that the token can be converted to an int
+        /* Validate that the token can be converted to an int */
         if (position != NULL) {
             y = strtol(position, NULL, 10);
         }
 
-        // If the converted values aren't between 1 and 8, return into the loop
+        /* If the converted values aren't between 1 and 8, return into the loop */
         if (!(1 <= x && x <= 8) || !(1 <= y && y <= 8)) {
             validInput = FALSE;
 
@@ -142,7 +142,7 @@ Boolean makeMove(Player * player, Cell board[BOARD_HEIGHT][BOARD_WIDTH])
             continue;
         }
         
-        // If the position specified is against the rules, return into the loop
+        /* If the position specified is against the rules, return into the loop */
         if (!applyMove(board, (int)y, (int)x, player->token)) {
             validInput = FALSE;
 
@@ -178,7 +178,7 @@ unsigned gameScore(Cell board[BOARD_HEIGHT][BOARD_WIDTH], Cell token)
     int i, ii;
     for ( i = 0; i < BOARD_WIDTH; i++ ) {
         for( ii = 0; ii < BOARD_HEIGHT; ii++ ) {
-            // Add 1 if the token matches, otherwise don't add anything
+            /* Add 1 if the token matches, otherwise don't add anything */
             sum += (board[i][ii] == token) ? 1 : 0;
         }
     }
