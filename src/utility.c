@@ -27,11 +27,10 @@ void displayWelcome() {
 }
 
 long getUserChoice() {
+    Boolean correctInput = FALSE;
     int digits = EXTRA_SPACES + 1;
     char buffer[digits];
     strcpy(buffer, "");
-
-    Boolean correctInput = FALSE;
 
     while (!correctInput) {
         correctInput = TRUE;
@@ -54,9 +53,9 @@ long getUserChoice() {
 }
 
 void getUserInput(char *buffer, int charsToRead) {
-    strcpy(buffer, "");
-
     Boolean correctInput = FALSE;
+    
+    strcpy(buffer, "");
 
     while (!correctInput) {
         correctInput = TRUE;
