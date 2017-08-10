@@ -35,7 +35,7 @@ Player * playGame(Player * first, Player * second)
 
     displayWelcome();
     
-    long int choice = getUserChoice();
+    choice = getUserChoice();
 
     while (!validChoice) {
 
