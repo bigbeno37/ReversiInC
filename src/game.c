@@ -25,7 +25,7 @@
 Player * playGame(Player * first, Player * second)
 {
     Cell board[BOARD_WIDTH][BOARD_HEIGHT];
-    long int choice = getUserChoice();
+    long int choice = 0;
     Boolean validChoice = FALSE;
     Player *currentPlayer = first, *opponent = second;
     
@@ -34,6 +34,8 @@ Player * playGame(Player * first, Player * second)
     srand( (unsigned) time(&t));
 
     displayWelcome();
+    
+    long int choice = getUserChoice();
 
     while (!validChoice) {
 
