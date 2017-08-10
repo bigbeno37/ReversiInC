@@ -23,6 +23,7 @@ typedef enum boolean
  * the '\n' and '\0' when input is read through fgets().
  **/
 #define EXTRA_SPACES (NEW_LINE_SPACE + NULL_SPACE)
+#define CHOICE_SIZE (1 + EXTRA_SPACES)
 
 #define EMPTY_STRING ""
 
