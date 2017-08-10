@@ -29,6 +29,8 @@ Player * playGame(Player * first, Player * second)
     time_t t;
     srand( (unsigned) time(&t));
 
+    Cell board[BOARD_WIDTH][BOARD_HEIGHT];
+
     displayWelcome();
 
     long int choice = getUserChoice();
@@ -39,22 +41,32 @@ Player * playGame(Player * first, Player * second)
         validChoice = TRUE;
 
         if (choice == 1) {
-
+            // Continue below
         } else if (choice == 2) {
             return NULL;
         } else {
-            puts("Not a valid choice!");
+
+            validChoice = FALSE;
+
+            puts("\nNot a valid choice!");
             printf("Enter a choice: ");
 
-            choice = getUserChoice(1);
+            choice = getUserChoice();
         }
     }
 
-
-
-
     initFirstPlayer(first);
     initSecondPlayer(second, first->token);
+
+    Player *currentPlayer = first, *opponent = second;
+
+    initBoard(board);
+    displayBoard(board, first, second);
+
+    while (makeMove(currentPlayer, board)) {
+        swapPlayers(&currentPlayer, &opponent);
+    }
+
 
     // If the two player's scores are tied, return NULL
     if ( first->score == second->score ) {
@@ -79,7 +91,47 @@ Player * playGame(Player * first, Player * second)
  **/
 Boolean makeMove(Player * player, Cell board[BOARD_HEIGHT][BOARD_WIDTH])
 {
-    return FALSE;
+    printf("It is %s's turn.\n", player->name);
+    printf("Please enter x and y coordinates separated by a comma for the piece you wish to place: ");
+
+    char buffer[3 + EXTRA_SPACES] = "", *position;
+    long x = 0, y = 0;
+
+    Boolean validInput = FALSE;
+
+    while (!validInput) {
+        validInput = TRUE;
+
+        fgets(buffer, 3 + EXTRA_SPACES, stdin);
+
+        if (!strchr(buffer, '\n')) {
+            printf("Buffer overflow! Enter a position separated by a comma: ");
+            readRestOfLine();
+
+            validInput = FALSE;
+
+            continue;
+
+        }
+
+        if (buffer[0] == '\n') {
+            return FALSE;
+        }
+
+        position = strtok(buffer, ",");
+        x = strtol(position, NULL, 10);
+
+        position = strtok(NULL, ",");
+        y = strtol(position, NULL, 10);
+
+        if (!(1 <= x && x <= 8) || !(1 <= y && y <= 8)) {
+            validInput = FALSE;
+
+            puts("Invalid input! Enter a position separated by a comma: ");
+        }
+    }
+
+    applyMove(board, (int)y, (int)x, player->token);
 }
 
 /**
@@ -105,8 +157,9 @@ unsigned gameScore(Cell board[BOARD_HEIGHT][BOARD_WIDTH], Cell token)
 {
     unsigned int sum = 0;
 
-    for ( int i = 0; i < BOARD_WIDTH; i++ ) {
-        for( int ii = 0; ii < BOARD_HEIGHT; ii++ ) {
+    int i, ii;
+    for ( i = 0; i < BOARD_WIDTH; i++ ) {
+        for( ii = 0; ii < BOARD_HEIGHT; ii++ ) {
             // Add 1 if the token matches, otherwise don't add anything
             sum += (board[i][ii] == token) ? 1 : 0;
         }

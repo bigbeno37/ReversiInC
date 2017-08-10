@@ -42,12 +42,9 @@ long getUserChoice() {
         // If name doesn't have a newline character (and thus the input was bigger than 20)
         // remove overflowed characters and ask for new input
         if (!strchr(buffer, '\n')) {
-            printf("Buffer overflow! Please enter a correct choice: ");
+            printf("\nBuffer overflow! Please enter a valid choice: ");
             readRestOfLine();
 
-            correctInput = FALSE;
-        } else if (buffer[0] == '\n') {
-            printf("Please enter a choice: ");
             correctInput = FALSE;
         }
     }
@@ -79,4 +76,6 @@ void getUserInput(char *buffer, int charsToRead) {
             correctInput = FALSE;
         }
     }
+
+    buffer[strlen(buffer)-1]='\0';
 }

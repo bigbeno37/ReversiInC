@@ -5,6 +5,6 @@ file(GLOB SOURCES
     src/*.h
     src/*.c)
 
-set(CMAKE_C_STANDARD 99)
+set(CMAKE_C_STANDARD 90)
 
 add_executable(ReversiInC ${SOURCES})

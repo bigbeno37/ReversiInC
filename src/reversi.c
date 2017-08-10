@@ -2,9 +2,6 @@
 
 int main()
 {
-    char input[2];
-    Cell board[BOARD_HEIGHT][BOARD_WIDTH];
-
     Player player1;
     Player player2;
 
