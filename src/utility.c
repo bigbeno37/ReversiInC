@@ -35,7 +35,7 @@ long getUserChoice() {
         correctInput = TRUE;
 
         /* Get the input and store it in name */
-        fgets(buffer, digits, stdin);
+        fgets(buffer, CHOICE_SIZE, stdin);
 
         /* If name doesn't have a newline character (and thus the input was bigger than 20) */
         /* remove overflowed characters and ask for new input */
