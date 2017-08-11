@@ -188,6 +188,8 @@ Boolean applyMove(Cell board[BOARD_HEIGHT][BOARD_WIDTH], int y, int x, Cell toke
 {
     int i, ii;
     Boolean legalMove = FALSE;
+    Position pos;
+    Direction dir;
 
     /* Board goes y then x in [][] eg [1][2] is 2nd row 3rd column */
 
@@ -208,8 +210,11 @@ Boolean applyMove(Cell board[BOARD_HEIGHT][BOARD_WIDTH], int y, int x, Cell toke
 
             if (board[y + i][x + ii] == oppositeOf(token)) {
 
-                Position pos = { x, y };
-                Direction dir = { ii, i };
+                pos.x = x;
+                pos.y = y;
+
+                dir.x = ii;
+                dir.y = i;
 
                 if(isLegalMove(pos, dir, token, board)) {
                     legalMove = TRUE;
@@ -226,6 +231,7 @@ Boolean applyMove(Cell board[BOARD_HEIGHT][BOARD_WIDTH], int y, int x, Cell toke
 }
 
 void flipPieces(Position pos, Direction dir, Cell token, Cell board[8][8]) {
+    Position newPos;
 
     if ( !((pos.y+dir.y) < BOARD_HEIGHT && (pos.x+dir.x) < BOARD_WIDTH) ) {
         return;
@@ -238,34 +244,28 @@ void flipPieces(Position pos, Direction dir, Cell token, Cell board[8][8]) {
     if (board[ pos.y + dir.y ][ pos.x + dir.x ] == oppositeOf(token)) {
         board[ pos.y + dir.y ][ pos.x + dir.x ] = token;
 
-        Position newPos = { pos.x + dir.x, pos.y + dir.y };
+        newPos.x = pos.x + dir.x;
+        newPos.y = pos.y + dir.y;
 
         flipPieces(newPos, dir, token, board);
     }
-
-
-
 }
 
-Boolean isLegalMove(Position pos, Direction dir,
-                    Cell token, Cell board[8][8]) {
-    if ( !((pos.y+dir.y) < BOARD_HEIGHT && (pos.x+dir.x) < BOARD_WIDTH) ) {
-        return FALSE;
-    }
-
-    if ( board[ pos.y + dir.y ][ pos.x + dir.x ] == BLANK ) {
-        return FALSE;
-    }
+Boolean isLegalMove(Position pos, Direction dir, Cell token, Cell board[8][8]) {
+    Position newPos;
 
     if (board[pos.y + dir.y][pos.x + dir.x] == token) {
         return TRUE;
     }
 
     if (board[pos.y + dir.y][pos.x + dir.x] == oppositeOf(token)) {
-        Position newPos = { pos.x + dir.x, pos.y + dir.y };
+        newPos.x = pos.x + dir.x;
+        newPos.y = pos.y + dir.y;
 
         return isLegalMove(newPos, dir, token, board);
     }
+
+    return FALSE;
 
 }
 
