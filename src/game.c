@@ -1,5 +1,15 @@
 #include "game.h"
 
+Cell oppositeOf(Cell tokenToFlip);
+
+Boolean isLegalMove(int positionX, int positionY,
+                    int directionX, int directionY,
+                    Cell token, Cell board[8][8]) ;
+
+void flipPieces(int positionX, int positionY,
+                int directionX, int directionY,
+                Cell token, Cell board[8][8]) ;
+
 /**
  * The heart of the game itself. You should do ALL initialisation required
  * for the game in here or call function required for that purpose. For example
@@ -145,7 +155,7 @@ Boolean makeMove(Player * player, Cell board[BOARD_HEIGHT][BOARD_WIDTH])
         }
         
         /* If the position specified is against the rules, return into the loop */
-        if (!applyMove(board, (int)y, (int)x, player->token)) {
+        if (!applyMove(board, (int)(y-1), (int)(x-1), player->token)) {
             validInput = FALSE;
 
             printf("Invalid move! Enter a valid move: ");
@@ -169,7 +179,86 @@ Boolean makeMove(Player * player, Cell board[BOARD_HEIGHT][BOARD_WIDTH])
  **/
 Boolean applyMove(Cell board[BOARD_HEIGHT][BOARD_WIDTH], int y, int x, Cell token)
 {
+    int i, ii;
+
+    /* Board goes y then x in [][] eg [1][2] is 2nd row 3rd column */
+
+    /* If move is valid it must not be on an occupied space */
+    if (board[y][x] != BLANK) {
+        return FALSE;
+    }
+
+
+    /* Check the 8 directions around the pieces */
+    for (i = -1; i <= 1; i++) {
+        for (ii = -1; ii <= 1; ii++) {
+
+            /* Check for out of bounds */
+            if ( !((y+i) < BOARD_HEIGHT && (x+i) < BOARD_WIDTH) ) {
+                return FALSE;
+            }
+
+            if (board[y + i][x + ii] == oppositeOf(token)) {
+                if(isLegalMove(x, y, ii, i, token, board)) {
+                    flipPieces(x, y, ii, i, token, board);
+                }
+
+                return TRUE;
+            }
+        }
+    }
+
+
     return FALSE;
+}
+
+void flipPieces(int positionX, int positionY,
+                int directionX, int directionY,
+                Cell token, Cell board[8][8]) {
+
+    if ( !((positionY+directionY) < BOARD_HEIGHT && (positionX+directionX) < BOARD_WIDTH) ) {
+        return;
+    }
+
+//    if (board[positionY + directionY][positionX + directionX] == token) {
+//        return TRUE;
+//    }
+
+    if (board[positionY + directionY][positionX + directionX] == oppositeOf(token)) {
+        board[ positionY + directionY ][ positionX + directionX ] = oppositeOf(token);
+
+        return;
+    }
+
+
+
+}
+
+Boolean isLegalMove(int positionX, int positionY,
+                    int directionX, int directionY,
+                    Cell token, Cell board[8][8]) {
+    if ( !((positionY+directionY) < BOARD_HEIGHT && (positionX+directionX) < BOARD_WIDTH) ) {
+        return FALSE;
+    }
+
+    if ( board[ positionY + directionY ][ positionX + directionX ] == BLANK ) {
+        return FALSE;
+    }
+
+    if (board[positionY + directionY][positionX + directionX] == token) {
+        return TRUE;
+    }
+
+    if (board[positionY + directionY][positionX + directionX] == oppositeOf(token)) {
+        return isLegalMove(positionX + directionX, positionY + directionY,
+                           directionX, directionY, token, board);
+    }
+
+}
+
+/* Return the opposite token of the one passed in */
+Cell oppositeOf(Cell tokenToFlip) {
+    return (tokenToFlip == CYAN) ? RED : CYAN;
 }
 
 /**

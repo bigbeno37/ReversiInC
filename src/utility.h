@@ -15,6 +15,12 @@ typedef enum boolean
     TRUE
 } Boolean;
 
+typedef struct position
+{
+    int x;
+    int y;
+} Position;
+
 #define NEW_LINE_SPACE 1
 #define NULL_SPACE 1
 
