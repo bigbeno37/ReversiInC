@@ -162,6 +162,9 @@ Boolean makeMove(Player * player, Cell board[BOARD_HEIGHT][BOARD_WIDTH])
             continue;
         }
     }
+
+    /* Is a valid move*/
+    // TODO: flipPieces(player);
     
     return TRUE;
 }
@@ -199,11 +202,7 @@ Boolean applyMove(Cell board[BOARD_HEIGHT][BOARD_WIDTH], int y, int x, Cell toke
             }
 
             if (board[y + i][x + ii] == oppositeOf(token)) {
-                if(isLegalMove(x, y, ii, i, token, board)) {
-                    flipPieces(x, y, ii, i, token, board);
-                }
-
-                return TRUE;
+                return isLegalMove(x, y, ii, i, token, board);
             }
         }
     }
@@ -225,7 +224,8 @@ void flipPieces(int positionX, int positionY,
 //    }
 
     if (board[positionY + directionY][positionX + directionX] == oppositeOf(token)) {
-        board[ positionY + directionY ][ positionX + directionX ] = oppositeOf(token);
+        board[ positionY + directionY ][ positionX + directionX ] = token;
+
 
         return;
     }
