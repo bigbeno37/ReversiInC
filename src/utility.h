@@ -21,6 +21,12 @@ typedef struct position
     int y;
 } Position;
 
+typedef struct direction
+{
+    int x;
+    int y;
+} Direction;
+
 #define NEW_LINE_SPACE 1
 #define NULL_SPACE 1
 

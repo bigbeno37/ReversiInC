@@ -2,13 +2,12 @@
 
 Cell oppositeOf(Cell tokenToFlip);
 
-Boolean isLegalMove(int positionX, int positionY,
-                    int directionX, int directionY,
+void flipPieces(Position pos, Direction direct, Cell token, Cell board[8][8]) ;
+
+Boolean isLegalMove(Position pos, Direction dir,
                     Cell token, Cell board[8][8]) ;
 
-void flipPieces(int positionX, int positionY,
-                int directionX, int directionY,
-                Cell token, Cell board[8][8]) ;
+void updateScores(Cell board[8][8], Player *firstPlayer, Player *secondPlayer);
 
 /**
  * The heart of the game itself. You should do ALL initialisation required
@@ -74,10 +73,12 @@ Player * playGame(Player * first, Player * second)
     opponent = (first->token == RED) ? second : first;
 
     initBoard(board);
+    updateScores(board, first, second);
     displayBoard(board, first, second);
 
     /* The main loop; if the move made was successful, swap players and play the next round */
     while (makeMove(currentPlayer, board)) {
+        updateScores(board, first, second);
         swapPlayers(&currentPlayer, &opponent);
         displayBoard(board, first, second);
     }
@@ -91,6 +92,12 @@ Player * playGame(Player * first, Player * second)
     /* Otherwise return whoever scored higher */
     return ( first->score > second->score ) ? first : second;
 
+}
+
+/* Updates the scores of both players */
+void updateScores(Cell board[8][8], Player *firstPlayer, Player *secondPlayer) {
+    firstPlayer->score  = gameScore(board, firstPlayer->token);
+    secondPlayer->score = gameScore(board, secondPlayer->token);
 }
 
 /**
@@ -162,9 +169,6 @@ Boolean makeMove(Player * player, Cell board[BOARD_HEIGHT][BOARD_WIDTH])
             continue;
         }
     }
-
-    /* Is a valid move*/
-    // TODO: flipPieces(player);
     
     return TRUE;
 }
@@ -183,6 +187,7 @@ Boolean makeMove(Player * player, Cell board[BOARD_HEIGHT][BOARD_WIDTH])
 Boolean applyMove(Cell board[BOARD_HEIGHT][BOARD_WIDTH], int y, int x, Cell token)
 {
     int i, ii;
+    Boolean legalMove = FALSE;
 
     /* Board goes y then x in [][] eg [1][2] is 2nd row 3rd column */
 
@@ -202,56 +207,64 @@ Boolean applyMove(Cell board[BOARD_HEIGHT][BOARD_WIDTH], int y, int x, Cell toke
             }
 
             if (board[y + i][x + ii] == oppositeOf(token)) {
-                return isLegalMove(x, y, ii, i, token, board);
+
+                Position pos = { x, y };
+                Direction dir = { ii, i };
+
+                if(isLegalMove(pos, dir, token, board)) {
+                    legalMove = TRUE;
+
+                    board[pos.y][pos.x] = token;
+                    flipPieces( pos, dir, token, board );
+                }
             }
         }
     }
 
 
-    return FALSE;
+    return legalMove;
 }
 
-void flipPieces(int positionX, int positionY,
-                int directionX, int directionY,
-                Cell token, Cell board[8][8]) {
+void flipPieces(Position pos, Direction dir, Cell token, Cell board[8][8]) {
 
-    if ( !((positionY+directionY) < BOARD_HEIGHT && (positionX+directionX) < BOARD_WIDTH) ) {
+    if ( !((pos.y+dir.y) < BOARD_HEIGHT && (pos.x+dir.x) < BOARD_WIDTH) ) {
         return;
     }
 
-//    if (board[positionY + directionY][positionX + directionX] == token) {
-//        return TRUE;
-//    }
-
-    if (board[positionY + directionY][positionX + directionX] == oppositeOf(token)) {
-        board[ positionY + directionY ][ positionX + directionX ] = token;
-
-
+    if (board[pos.y + dir.y][pos.x + dir.x] == token) {
         return;
+    }
+
+    if (board[ pos.y + dir.y ][ pos.x + dir.x ] == oppositeOf(token)) {
+        board[ pos.y + dir.y ][ pos.x + dir.x ] = token;
+
+        Position newPos = { pos.x + dir.x, pos.y + dir.y };
+
+        flipPieces(newPos, dir, token, board);
     }
 
 
 
 }
 
-Boolean isLegalMove(int positionX, int positionY,
-                    int directionX, int directionY,
+Boolean isLegalMove(Position pos, Direction dir,
                     Cell token, Cell board[8][8]) {
-    if ( !((positionY+directionY) < BOARD_HEIGHT && (positionX+directionX) < BOARD_WIDTH) ) {
+    if ( !((pos.y+dir.y) < BOARD_HEIGHT && (pos.x+dir.x) < BOARD_WIDTH) ) {
         return FALSE;
     }
 
-    if ( board[ positionY + directionY ][ positionX + directionX ] == BLANK ) {
+    if ( board[ pos.y + dir.y ][ pos.x + dir.x ] == BLANK ) {
         return FALSE;
     }
 
-    if (board[positionY + directionY][positionX + directionX] == token) {
+    if (board[pos.y + dir.y][pos.x + dir.x] == token) {
         return TRUE;
     }
 
-    if (board[positionY + directionY][positionX + directionX] == oppositeOf(token)) {
-        return isLegalMove(positionX + directionX, positionY + directionY,
-                           directionX, directionY, token, board);
+    if (board[pos.y + dir.y][pos.x + dir.x] == oppositeOf(token)) {
+        Position newPos = { pos.x + dir.x, pos.y + dir.y };
+
+        return isLegalMove(newPos, dir, token, board);
     }
 
 }

@@ -8,10 +8,10 @@
  * 
  * Note you are NOT required to use this enum if you don't want to.
  */
-typedef enum direction
-{
-    NORTH, SOUTH, EAST, WEST, NORTH_EAST, NORTH_WEST, SOUTH_EAST, SOUTH_WEST
-} Direction;
+//typedef enum direction
+//{
+//    NORTH, SOUTH, EAST, WEST, NORTH_EAST, NORTH_WEST, SOUTH_EAST, SOUTH_WEST
+//} Direction;
 
 Player * playGame(Player * first, Player * second);
 Boolean makeMove(Player * player, Cell board[BOARD_HEIGHT][BOARD_WIDTH]);
