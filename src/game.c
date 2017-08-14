@@ -53,7 +53,10 @@ Player * playGame(Player * first, Player * second)
         if (choice == 1) {
             /* Continue below */
         } else if (choice == 2) {
-            return NULL;
+            puts("");
+            puts("Goodbye. ");
+
+            exit(0);
         } else {
 
             validChoice = FALSE;
@@ -118,7 +121,7 @@ Boolean makeMove(Player * player, Cell board[BOARD_HEIGHT][BOARD_WIDTH])
     Boolean validInput = FALSE;
     
     printf("It is %s's turn.\n", player->name);
-    printf("Please enter x and y coordinates separated by a comma for the piece you wish to place: ");    
+    printf("Please enter x and y coordinates separated by a comma for the piece you wish to place: ");
 
     while (!validInput) {
         validInput = TRUE;
