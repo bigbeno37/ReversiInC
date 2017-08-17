@@ -208,7 +208,7 @@ Boolean applyMove(Cell board[BOARD_HEIGHT][BOARD_WIDTH], int y, int x, Cell toke
 
             /* Check for out of bounds */
             if ( !((y+i) < BOARD_HEIGHT && (x+i) < BOARD_WIDTH) ) {
-                return FALSE;
+                continue;
             }
 
             if (board[y + i][x + ii] == oppositeOf(token)) {
