@@ -77,7 +77,7 @@ void displayBoard(
             }
         }
 
-        puts("");
+        puts(EMPTY_STRING);
         puts("------------------------------------");
     }
 }

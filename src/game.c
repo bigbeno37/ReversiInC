@@ -2,7 +2,7 @@
 
 Cell oppositeOf(Cell tokenToFlip);
 
-void flipPieces(Position pos, Direction direct, Cell token, Cell board[8][8]) ;
+void flipPieces(Position pos, Direction dir, Cell token, Cell board[8][8]) ;
 
 Boolean isLegalMove(Position pos, Direction dir,
                     Cell token, Cell board[8][8]) ;
@@ -53,7 +53,7 @@ Player * playGame(Player * first, Player * second)
         if (choice == 1) {
             /* Continue below */
         } else if (choice == 2) {
-            puts("");
+            puts(EMPTY_STRING);
             puts("Goodbye. ");
 
             exit(0);
@@ -116,7 +116,7 @@ void updateScores(Cell board[8][8], Player *firstPlayer, Player *secondPlayer) {
  **/
 Boolean makeMove(Player * player, Cell board[BOARD_HEIGHT][BOARD_WIDTH])
 {
-    char buffer[3 + EXTRA_SPACES] = "", *position;
+    char buffer[3 + EXTRA_SPACES] = EMPTY_STRING, *position;
     long x = 0, y = 0;
     Boolean validInput = FALSE;
     
