@@ -126,7 +126,9 @@ Boolean makeMove(Player * player, Cell board[BOARD_HEIGHT][BOARD_WIDTH])
     while (!validInput) {
         validInput = TRUE;
         
-        fgets(buffer, 3 + EXTRA_SPACES, stdin);
+        if(fgets(buffer, 3 + EXTRA_SPACES, stdin) == NULL) {
+            return FALSE;
+        }
 
         if (!strchr(buffer, '\n')) {
             printf("Buffer overflow! Enter a position separated by a comma: ");

@@ -8,6 +8,8 @@ int main()
 
         Player *winner = playGame(&player1, &player2);
 
+        puts(EMPTY_STRING);
+
         if (winner == NULL) {
             puts("The game was a tie!\n\n");
         } else {
