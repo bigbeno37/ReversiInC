@@ -211,8 +211,6 @@ Boolean applyMove(Cell board[BOARD_HEIGHT][BOARD_WIDTH], int y, int x, Cell toke
                 continue;
             }
 
-            Cell whatIsThis = board[y+i][x+ii];
-
             if (board[y + i][x + ii] == oppositeOf(token)) {
 
                 pos.x = x;
