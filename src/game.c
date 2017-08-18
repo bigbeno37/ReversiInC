@@ -207,9 +207,11 @@ Boolean applyMove(Cell board[BOARD_HEIGHT][BOARD_WIDTH], int y, int x, Cell toke
         for (ii = -1; ii <= 1; ii++) {
 
             /* Check for out of bounds */
-            if ( !((y+i) < BOARD_HEIGHT && (x+i) < BOARD_WIDTH) ) {
+            if ( !((y+i) < BOARD_HEIGHT && (x+ii) < BOARD_WIDTH) ) {
                 continue;
             }
+
+            Cell whatIsThis = board[y+i][x+ii];
 
             if (board[y + i][x + ii] == oppositeOf(token)) {
 
@@ -233,6 +235,24 @@ Boolean applyMove(Cell board[BOARD_HEIGHT][BOARD_WIDTH], int y, int x, Cell toke
     return legalMove;
 }
 
+Boolean isLegalMove(Position pos, Direction dir, Cell token, Cell board[8][8]) {
+    Position newPos;
+
+    if (board[pos.y + dir.y][pos.x + dir.x] == token) {
+        return TRUE;
+    }
+
+    if (board[pos.y + dir.y][pos.x + dir.x] == oppositeOf(token)) {
+        newPos.x = pos.x + dir.x;
+        newPos.y = pos.y + dir.y;
+
+        return isLegalMove(newPos, dir, token, board);
+    }
+
+    return FALSE;
+
+}
+
 void flipPieces(Position pos, Direction dir, Cell token, Cell board[8][8]) {
     Position newPos;
 
@@ -252,24 +272,6 @@ void flipPieces(Position pos, Direction dir, Cell token, Cell board[8][8]) {
 
         flipPieces(newPos, dir, token, board);
     }
-}
-
-Boolean isLegalMove(Position pos, Direction dir, Cell token, Cell board[8][8]) {
-    Position newPos;
-
-    if (board[pos.y + dir.y][pos.x + dir.x] == token) {
-        return TRUE;
-    }
-
-    if (board[pos.y + dir.y][pos.x + dir.x] == oppositeOf(token)) {
-        newPos.x = pos.x + dir.x;
-        newPos.y = pos.y + dir.y;
-
-        return isLegalMove(newPos, dir, token, board);
-    }
-
-    return FALSE;
-
 }
 
 /* Return the opposite token of the one passed in */
