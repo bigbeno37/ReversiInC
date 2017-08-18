@@ -3,8 +3,7 @@
 
 #include "utility.h"
 
-typedef enum cell
-{
+typedef enum cell {
     BLANK, RED, CYAN
 } Cell;
 
@@ -16,14 +15,14 @@ typedef enum cell
 /* The maximum length of a player name. */
 #define NAMELEN 20
 
-typedef struct player
-{
+typedef struct player {
     char name[NAMELEN + NULL_SPACE];
     Cell token;
     unsigned score;
 } Player;
 
-void initFirstPlayer(Player * player);
-void initSecondPlayer(Player * player, Cell token);
+void initFirstPlayer( Player *player );
+
+void initSecondPlayer( Player *player, Cell token );
 
 #endif

@@ -9,20 +9,17 @@
 #include <time.h>
 #include <assert.h>
 
-typedef enum boolean
-{
+typedef enum boolean {
     FALSE = 0,
     TRUE
 } Boolean;
 
-typedef struct position
-{
+typedef struct position {
     int x;
     int y;
 } Position;
 
-typedef struct direction
-{
+typedef struct direction {
     int x;
     int y;
 } Direction;
@@ -46,7 +43,8 @@ void readRestOfLine();
 
 void displayWelcome();
 
-void getUserInput(char *buffer, int charsToRead);
+void getUserInput( char *buffer, int charsToRead );
+
 long getUserChoice();
 
 #endif
